@@ -1,0 +1,8 @@
+.pull-right { float: right; }
+
+.pull-left { float: left; }
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
