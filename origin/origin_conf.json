@@ -1,0 +1,60 @@
+{
+  "main":{
+          "servicename":{
+                "value": "IPTVorg",
+                "config_file": false,
+                "config_web": false
+                },
+          "dictpopname":{
+                      "value": "iptvorg",
+                      "config_file": false,
+                      "config_web": false
+                    },
+          "reponame":{
+                          "value": "fHDHR_IPTVorg",
+                          "config_file": false,
+                          "config_web": false
+                        }
+  },
+  "fhdhr":{
+          "friendlyname":{
+                    "value": "fHDHR-IPTVorg",
+                    "config_file": true,
+                    "config_web": true
+                },
+          "reporting_firmware_name":{
+                                    "value": "fHDHR_IPTVorg",
+                                    "config_file": true,
+                                    "config_web": true
+                                  }
+  },
+  "epg":{
+          "method":{
+                    "value": "blocks",
+                    "config_file": true,
+                    "config_web": true
+                },
+          "valid_epg_methods":{
+                          "value": "None,blocks,origin",
+                          "config_file": false,
+                          "config_web": false
+                        }
+  },
+  "iptvorg":{
+          "filter_country":{
+                    "value": "United States",
+                    "config_file": true,
+                    "config_web": true
+                },
+          "filter_language":{
+                    "value": "English",
+                    "config_file": true,
+                    "config_web": true
+                },
+          "filter_category":{
+                    "value": "none",
+                    "config_file": true,
+                    "config_web": true
+                }
+  }
+}

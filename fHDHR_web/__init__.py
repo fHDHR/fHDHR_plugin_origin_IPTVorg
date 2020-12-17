@@ -1,0 +1,106 @@
+from gevent.pywsgi import WSGIServer
+from flask import Flask, request
+
+from .pages import fHDHR_Pages
+from .files import fHDHR_Files
+from .hdhr import fHDHR_HDHR
+from .rmg import fHDHR_RMG
+from .api import fHDHR_API
+
+
+fHDHR_web_VERSION = "v0.4.0-beta"
+
+
+class fHDHR_HTTP_Server():
+    app = None
+
+    def __init__(self, fhdhr):
+        self.fhdhr = fhdhr
+
+        self.template_folder = fhdhr.config.internal["paths"]["www_templates_dir"]
+
+        self.fhdhr.logger.info("Loading Flask.")
+
+        self.fhdhr.app = Flask("fHDHR", template_folder=self.template_folder)
+        self.fhdhr.app.testing = True
+        self.fhdhr.api.client = self.fhdhr.app.test_client()
+
+        self.fhdhr.logger.info("Loading HTTP Pages Endpoints.")
+        self.pages = fHDHR_Pages(fhdhr)
+        self.add_endpoints(self.pages, "pages")
+
+        self.fhdhr.logger.info("Loading HTTP Files Endpoints.")
+        self.files = fHDHR_Files(fhdhr)
+        self.add_endpoints(self.files, "files")
+
+        self.fhdhr.logger.info("Loading HTTP HDHR Endpoints.")
+        self.hdhr = fHDHR_HDHR(fhdhr)
+        self.add_endpoints(self.hdhr, "hdhr")
+
+        self.fhdhr.logger.info("Loading HTTP RMG Endpoints.")
+        self.rmg = fHDHR_RMG(fhdhr)
+        self.add_endpoints(self.rmg, "rmg")
+
+        self.fhdhr.logger.info("Loading HTTP API Endpoints.")
+        self.api = fHDHR_API(fhdhr)
+        self.add_endpoints(self.api, "api")
+
+        self.fhdhr.logger.info("Loading HTTP Origin Endpoints.")
+        self.origin_endpoints = self.fhdhr.originwrapper.origin.origin_web.fHDHR_Origin_Web(fhdhr)
+        self.add_endpoints(self.origin_endpoints, "origin_endpoints")
+
+        self.fhdhr.app.before_request(self.before_request)
+        self.fhdhr.app.after_request(self.after_request)
+        self.fhdhr.app.before_first_request(self.before_first_request)
+
+    def before_first_request(self):
+        self.fhdhr.logger.info("HTTP Server Online.")
+
+    def before_request(self):
+        self.fhdhr.logger.debug("Client %s requested %s Opening" % (request.method, request.path))
+
+    def after_request(self, response):
+        self.fhdhr.logger.debug("Client %s requested %s Closing" % (request.method, request.path))
+        return response
+
+    def add_endpoints(self, index_list, index_name):
+        item_list = [x for x in dir(index_list) if self.isapath(x)]
+        for item in item_list:
+            endpoints = eval("self." + str(index_name) + "." + str(item) + ".endpoints")
+            if isinstance(endpoints, str):
+                endpoints = [endpoints]
+            handler = eval("self." + str(index_name) + "." + str(item))
+            endpoint_name = eval("self." + str(index_name) + "." + str(item) + ".endpoint_name")
+            try:
+                endpoint_methods = eval("self." + str(index_name) + "." + str(item) + ".endpoint_methods")
+            except AttributeError:
+                endpoint_methods = ['GET']
+            self.fhdhr.logger.debug("Adding endpoint %s available at %s with %s methods." % (endpoint_name, ",".join(endpoints), ",".join(endpoint_methods)))
+            for endpoint in endpoints:
+                self.add_endpoint(endpoint=endpoint,
+                                  endpoint_name=endpoint_name,
+                                  handler=handler,
+                                  methods=endpoint_methods)
+
+    def isapath(self, item):
+        not_a_page_list = ["fhdhr", "htmlerror", "page_elements"]
+        if item in not_a_page_list:
+            return False
+        elif item.startswith("__") and item.endswith("__"):
+            return False
+        else:
+            return True
+
+    def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None, methods=['GET']):
+        self.fhdhr.app.add_url_rule(endpoint, endpoint_name, handler, methods=methods)
+
+    def run(self):
+
+        self.http = WSGIServer(self.fhdhr.api.address_tuple,
+                               self.fhdhr.app.wsgi_app,
+                               log=self.fhdhr.logger)
+
+        try:
+            self.http.serve_forever()
+        except KeyboardInterrupt:
+            self.http.stop()
