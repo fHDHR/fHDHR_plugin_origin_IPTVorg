@@ -17,7 +17,4 @@ fHDHR is labeled as beta until we reach v1.0.0
 Join us in `#fHDHR <irc://irc.freenode.net/#fHDHR>`_ on Freenode.
 
 
-Due to multiple issues, I'm dropping official support for Windows.
-
-
 This varient has bugs and the author is aware of it
