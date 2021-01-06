@@ -42,10 +42,13 @@ class OriginChannels():
 
         return channel_list
 
-    def get_channel_stream(self, chandict):
+    def get_channel_stream(self, chandict, stream_args):
         streamdict = self.get_channel_dict(self.filtered_chan_list, "name", chandict["origin_name"])
         streamurl = streamdict["url"]
-        return streamurl
+
+        stream_info = {"url": streamurl}
+
+        return stream_info
 
     def get_unfiltered_chan_json(self):
         urlopn = self.fhdhr.web.session.get(self.origin.channels_json_url)
