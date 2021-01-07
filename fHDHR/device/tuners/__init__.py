@@ -99,9 +99,6 @@ class Tuners():
             stream_info = {"url": stream_info}
         stream_args["stream_info"] = stream_info
 
-        if "quality_from_origin" not in list(stream_args["stream_info"].keys()):
-            stream_args["stream_info"]["quality_from_origin"] = False
-
         if stream_args["stream_info"]["url"].startswith("udp://"):
             stream_args["true_content_type"] = "video/mpeg"
             stream_args["content_type"] = "video/mpeg"
