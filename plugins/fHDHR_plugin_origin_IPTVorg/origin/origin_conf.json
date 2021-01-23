@@ -33,12 +33,7 @@
                     "value": "blocks",
                     "config_file": true,
                     "config_web": true
-                },
-          "valid_epg_methods":{
-                          "value": "None,blocks,origin",
-                          "config_file": false,
-                          "config_web": false
-                        }
+                }
   },
   "iptvorg":{
           "filter_country":{
