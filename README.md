@@ -18,3 +18,8 @@ Join us in `#fHDHR <irc://irc.freenode.net/#fHDHR>`_ on Freenode.
 
 
 This varient has bugs and the author is aware of it
+
+# !!NOTICE!!
+
+To reduce code duplication between variants, I am moving to a plugin system.
+The normal variant repos will stay active during the transition.
