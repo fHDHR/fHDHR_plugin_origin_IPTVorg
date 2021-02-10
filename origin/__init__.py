@@ -5,9 +5,6 @@ class Plugin_OBJ():
     def __init__(self, plugin_utils):
         self.plugin_utils = plugin_utils
 
-        self.tuners = self.plugin_utils.config.dict["iptvorg"]["tuners"]
-        self.stream_method = self.plugin_utils.config.dict["iptvorg"]["stream_method"]
-
         self.channels_json_url = "https://iptv-org.github.io/iptv/channels.json"
 
         self.filter_dict = {}
@@ -15,6 +12,14 @@ class Plugin_OBJ():
 
         self.unfiltered_chan_json = None
         self.filtered_chan_json = None
+
+    @property
+    def tuners(self):
+        return self.plugin_utils.config.dict["iptvorg"]["tuners"]
+
+    @property
+    def stream_method(self):
+        return self.plugin_utils.config.dict["iptvorg"]["stream_method"]
 
     @property
     def filtered_chan_list(self):
