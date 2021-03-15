@@ -92,20 +92,23 @@ class Plugin_OBJ():
                 if not len(self.filter_dict[filter_key]):
                     filters_passed.append(True)
                 else:
-                    if filter_key in ["country", "language"]:
-                        if isinstance(channels_item[filter_key], list):
-                            if len(channels_item[filter_key]):
-                                chan_values = []
-                                chan_values.extend([x["name"] for x in channels_item[filter_key]])
-                                chan_values.extend([x["code"] for x in channels_item[filter_key]])
+                    if filter_key in list(channels_item.keys()):
+                        if filter_key in ["country", "language"]:
+                            if isinstance(channels_item[filter_key], list):
+                                if len(channels_item[filter_key]):
+                                    chan_values = []
+                                    chan_values.extend([x["name"] for x in channels_item[filter_key]])
+                                    chan_values.extend([x["code"] for x in channels_item[filter_key]])
+                                else:
+                                    chan_values = []
                             else:
                                 chan_values = []
-                        else:
-                            chan_values = []
-                            chan_values.append(channels_item[filter_key]["name"])
-                            chan_values.append(channels_item[filter_key]["code"])
-                    elif filter_key in ["category"]:
-                        chan_values = [channels_item[filter_key]]
+                                chan_values.append(channels_item[filter_key]["name"])
+                                chan_values.append(channels_item[filter_key]["code"])
+                        elif filter_key in ["category"]:
+                            chan_values = [channels_item[filter_key]]
+                    else:
+                        chan_values = []
 
                     if not len(chan_values):
                         filter_passed = False
