@@ -23,7 +23,7 @@ Join us in `#fHDHR <irc://irc.freenode.net/#fHDHR>`_ on Freenode.
 
 ````
 [iptvorg]
-# filter_country = United States
-# filter_language = English
+# filter_countries = United States
+# filter_languages = English
 # filter_category = none
 ````
