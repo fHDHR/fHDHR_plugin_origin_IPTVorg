@@ -1,11 +1,11 @@
 {
   "iptvorg":{
-          "filter_country":{
+          "filter_countries":{
                     "value": "United States",
                     "config_file": true,
                     "config_web": true
                 },
-          "filter_language":{
+          "filter_languages":{
                     "value": "English",
                     "config_file": true,
                     "config_web": true

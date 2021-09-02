@@ -35,7 +35,7 @@ class Plugin_OBJ():
 
     def setup_filters(self):
 
-        for x in ["country", "language", "category"]:
+        for x in ["countries", "languages", "category"]:
             self.filter_dict[x] = []
 
         for filter in list(self.filter_dict.keys()):
@@ -93,7 +93,7 @@ class Plugin_OBJ():
                     filters_passed.append(True)
                 else:
                     if filter_key in list(channels_item.keys()):
-                        if filter_key in ["country", "language"]:
+                        if filter_key in ["countries", "languages"]:
                             if isinstance(channels_item[filter_key], list):
                                 if len(channels_item[filter_key]):
                                     chan_values = []
