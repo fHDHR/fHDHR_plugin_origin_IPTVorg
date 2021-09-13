@@ -13,6 +13,9 @@ fHDHR is labeled as beta until we reach v1.0.0
 
 Join us in `#fHDHR <irc://irc.freenode.net/#fHDHR>`_ on Freenode.
 
+# NOTE
+This plugin is proof of concept
+
 # Installation
 
 1) Review Installation guide located at [Docs](https://github.com/fHDHR/fHDHR/blob/main/docs/README.md)
