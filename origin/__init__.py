@@ -14,14 +14,6 @@ class Plugin_OBJ():
         self.filtered_chan_json = None
 
     @property
-    def tuners(self):
-        return self.plugin_utils.config.dict["iptvorg"]["tuners"]
-
-    @property
-    def stream_method(self):
-        return self.plugin_utils.config.dict["iptvorg"]["stream_method"]
-
-    @property
     def filtered_chan_list(self):
         if not self.filtered_chan_json:
             self.filtered_chan_json = self.filterlist()
