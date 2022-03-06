@@ -13,8 +13,8 @@ class Plugin_OBJ():
         programguide = {}
         return programguide
 
-        for fhdhr_id in list(self.channels.list.keys()):
-            chan_obj = self.channels.list[fhdhr_id]
+        for fhdhr_channel_id in list(self.channels.list.keys()):
+            chan_obj = self.channels.list[fhdhr_channel_id]
 
             filtered_chan_dict = self.origin.get_channel_dict(self.origin.filtered_chan_list, "name", chan_obj.dict["origin_name"])
 
