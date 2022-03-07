@@ -7,7 +7,7 @@ class Plugin_OBJ():
 
         self.channels = channels
 
-        self.origin = plugin_utils.origin
+        self.origin_name = plugin_utils.origin_name
 
     def update_epg(self):
         programguide = {}
