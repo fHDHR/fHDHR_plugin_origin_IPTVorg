@@ -16,7 +16,7 @@ class Plugin_OBJ():
         for fhdhr_channel_id in list(self.channels.list.keys()):
             chan_obj = self.channels.list[fhdhr_channel_id]
 
-            filtered_chan_dict = self.origin.get_channel_dict(self.origin.filtered_chan_list, "name", chan_obj.dict["origin_name"])
+            filtered_chan_dict = self.origin_obj.get_channel_dict(self.origin_obj.filtered_chan_list, "name", chan_obj.dict["origin_name"])
 
             if str(chan_obj.number) not in list(programguide.keys()):
                 programguide[str(chan_obj.number)] = chan_obj.epgdict
